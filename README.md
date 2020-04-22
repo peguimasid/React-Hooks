@@ -33,7 +33,48 @@ plugins: [
   ],
 ```
 
+E dentro de `rules` passamos:
 
+```
+'react-hooks/rules-of-hooks': 'error',
+'react-hooks/exhaustive-deps': 'warn'
+```
 
+## Aula 02 - Hook useState
 
+Ate agora no React se quisermos utilizar o estado na nossa aplicaçāo (state) nos nao poderiamos fazer o componente em forma de funçāo (`function App()`) e sim em formato de class (`class App extends Component`) e o useState chegou para reduzir a quantidade de codigo e diminuir a complexidade de um estado.
 
+Vamos utilizar em um exemplo pratico, olhe o codigo abaixo:
+
+```
+import React, { useState } from 'react';
+
+function App() {
+  const [techs, setTechs] = useState(['ReactJS', 'React Native'])
+  const [newTech, setNewTech] = useState('');
+
+  //TEMOS UMA CONST TECHS E O VALOR SETTECHS, E AGORA EM VEZ DE USAR O SETSTATE, VAMOS UTILIZAR O SETTECHS E PASSAR O NOVO VALOR DO ESTADO.
+
+  function handleAdd() {
+    setTechs([...techs, newTech])
+    setNewTech('')
+  }
+
+  return (
+    <div className="App">
+      <>
+      <ul>
+        { techs.map(tech => (
+          <li key={tech}>{tech}</li>
+        ))}
+      </ul>
+      <input value={newTech} onChange={e => setNewTech(e.target.value)} />
+      <button type="submit" onClick={handleAdd}>Add Tech</button>
+      </>
+    </div>
+  );
+}
+
+export default App;
+
+```
