@@ -15,7 +15,8 @@
 
 # React Hooks
 
-<!-- Manipular estados Globais de uma aplicaçāo de forma robusta e escalavel. -->
+***useState*** --> Substitui os estados (state)
+***useEffect*** --> Substitui os metodos de ciclo de vida (***EX:*** `componentDidMount`)
 
 ## Aula 01 - Configurando estrutura
 
@@ -53,7 +54,7 @@ function App() {
   const [techs, setTechs] = useState(['ReactJS', 'React Native'])
   const [newTech, setNewTech] = useState('');
 
-  //TEMOS UMA CONST TECHS E O VALOR SETTECHS, E AGORA EM VEZ DE USAR O SETSTATE, VAMOS UTILIZAR O SETTECHS E PASSAR O NOVO VALOR DO ESTADO.
+  //TEMOS UMA CONST techs E O VALOR setTechs, E AGORA EM VEZ DE USAR O setState, VAMOS UTILIZAR O setTechs E PASSAR O NOVO VALOR DO ESTADO.
 
   function handleAdd() {
     setTechs([...techs, newTech])
@@ -76,5 +77,37 @@ function App() {
 }
 
 export default App;
+```
+
+## Aula 03 - Hook useEffect
+
+O ***useEffect*** substitui os metodos de ciclo de vida que tinhamos antes como `componentDidMount`, `componentDidUpdate` e `componentWillUnmount`
+```
+                    QUANDO ELA VAI SER CHAMADA
+                    **
+useEffect(() => {}, [])
+          ********
+          FUNÇĀO QUE VAI SER CHAMADA
+```
+podemos usar como exemplo, um armazenamento que antes faziamos no `localStorage`, agora em vez de usar o `ComponentDidMount` podemos fazer assim.
 
 ```
+//PEGA OS ITENS ARMAZENADOS NO LOCALSTORAGE
+useEffect(() => {
+    const storageTechs = localStorage.getItem('techs');
+
+    if(storageTechs) {
+      setTechs(JSON.parse(storageTechs));
+    }
+  },[])
+    **
+    //SO VAI SER CHAMADO UMA UNICA VEZ QUANDO A PAGINA CARREGAR
+
+//ARMAZENA OS ITENS NO LOCALSTORAGE
+  useEffect(() => {
+    localStorage.setItem('techs', JSON.stringify(techs));
+  }, [techs])
+     *******
+     //SEMPRE QUE O ARRAY DE TECHS MUDAR ESSE USEEFFECT VAI SER CHAMADO
+```
+
