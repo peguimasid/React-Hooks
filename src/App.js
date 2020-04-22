@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 function App() {
   const [techs, setTechs] = useState([])
@@ -21,9 +21,12 @@ function App() {
     localStorage.setItem('techs', JSON.stringify(techs));
   }, [techs])
 
+  const techSize = useMemo(() => techs.length, [techs])
+
   return (
     <div className="App">
       <>
+      <strong>Voce tem {techSize} tecnologias na lista</strong> <br/>
       <ul>
         { techs.map(tech => (
           <li key={tech}>{tech}</li>

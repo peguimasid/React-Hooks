@@ -92,6 +92,9 @@ useEffect(() => {}, [])
 podemos usar como exemplo, um armazenamento que antes faziamos no `localStorage`, agora em vez de usar o `ComponentDidMount` podemos fazer assim.
 
 ```
+import React, { useState, useEffect } from 'react';
+                          *********
+...
 //PEGA OS ITENS ARMAZENADOS NO LOCALSTORAGE
 useEffect(() => {
     const storageTechs = localStorage.getItem('techs');
@@ -111,3 +114,22 @@ useEffect(() => {
      //SEMPRE QUE O ARRAY DE TECHS MUDAR ESSE USEEFFECT VAI SER CHAMADO
 ```
 
+## Aula 04 - Hook useMemo
+
+Usamos sempre que precisarmos fazer um calculo e so queremos que esse calculo seja feito quando uma propriedade especifica mudar.
+
+***Exemplo:***
+
+```
+import React, { useState, useEffect, useMemo } from 'react';
+                                     *******
+...
+                                              //SERA RECALCULADO SOMENTE QUANDO O ESTADO "TECHS" MUDAR
+                                              *****
+const techSize = useMemo(() => techs.length, [techs])
+                               ************
+                               //CALCULO QUE DESEJAMOS FAZER
+...
+
+<strong>Voce tem {techSize} tecnologias na lista</strong>
+```
