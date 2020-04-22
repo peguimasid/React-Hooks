@@ -17,6 +17,7 @@
 
 ***useState*** --> Substitui os estados (state) <br>
 ***useEffect*** --> Substitui os metodos de ciclo de vida (***EX:*** `componentDidMount`) <br>
+***useMemo*** --> Fazer calculos <br>
 
 ## Aula 01 - Configurando estrutura
 
