@@ -15,8 +15,8 @@
 
 # React Hooks
 
-***useState*** --> Substitui os estados (state)
-***useEffect*** --> Substitui os metodos de ciclo de vida (***EX:*** `componentDidMount`)
+***useState*** --> Substitui os estados (state) <br>
+***useEffect*** --> Substitui os metodos de ciclo de vida (***EX:*** `componentDidMount`) <br>
 
 ## Aula 01 - Configurando estrutura
 
