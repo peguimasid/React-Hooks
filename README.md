@@ -18,6 +18,7 @@
 ***useState*** --> Substitui os estados (state) <br>
 ***useEffect*** --> Substitui os metodos de ciclo de vida (***EX:*** `componentDidMount`) <br>
 ***useMemo*** --> Fazer calculos <br>
+***useCallBack*** --> Fazer com que funções so sejam chamadas quando coisas específicas forem alteradas no estado/código <br>
 
 ## Aula 01 - Configurando estrutura
 
@@ -133,4 +134,33 @@ const techSize = useMemo(() => techs.length, [techs])
 ...
 
 <strong>Voce tem {techSize} tecnologias na lista</strong>
+```
+## Aula 05 - Hook useCallBack
+
+Ela evita de uma funçāo ser chamada sem necessidade, gastando espaco e processamento.
+
+***Exemplo:***
+
+Temos nossa funcao `handleAdd()` que é chamada toda vez que alteramos qualquer coisa na pagina:
+
+```
+function handleAdd() {
+    setTechs([...techs, newTech]);
+    setNewTech('');
+  }
+```
+
+usando o ***useCallBack*** ela so sera chamada quando propriedade especificas da funcao mudarem:
+
+***EX:***
+```
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+                                              ***********
+...
+const handleAdd = useCallback(() => {
+    setTechs([...techs, newTech]);
+    setNewTech('');
+  }, [newTech, techs]);
+      **************
+      //SO SERÁ CHAMADA NOVAMENTE QUANDO O VALOR DE "newTech" ou "techs" MUDAR
 ```
