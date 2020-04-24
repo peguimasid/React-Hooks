@@ -323,3 +323,115 @@ const mapDispatchToProps = (dispatch) =>
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 ```
+## Aula 07 - Hooks com Redux
+
+Vamos ver agora como utilizar os Hooks com o Redux ficando mais facil ainda a utilizaçāo e diminuindo bastante o código.
+
+### useSelector
+
+- O primeiro que vamos aprender é o ***useSelector*** que server para acessarmos informações do estado do ***Redux*** sem ter que usar o `mapStateToProps`
+
+***EXEMPLO 1:***
+
+1. Importamos ele:
+
+`import { useSelector } from 'react-redux';`
+
+2. E agora, a conexāo para acessar o estado do carrinho e pegar o length dele que antes faziamos assim:
+
+```
+export default connect((state) => ({
+  cartSize: state.cart.length,
+}))(Header);
+```
+
+Agora dentro do componente colocamos assim:
+
+`const cartSize = useSelector((state) => state.cart.length);`
+
+Depois de fazer isso podemos deletar o primeiro metodo e o acesso ao estado ficou muito mais simples.
+
+Apos fazer isso a unica coisa que precisamos fazer é passar `export default` na function principal do nosso componente que nesse caso é o Header:
+
+```
+export default function Header() { ...
+**************
+```
+
+***EXEMPLO 2:***
+
+O acesso ao estado que antes faziamos assim:
+
+```
+const mapStateToProps = (state) => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+
+    return amount;
+  }, {}),
+});
+```
+Agora podemos fazer assim dentro da funcao principal:
+
+```
+const amount = useSelector((state) =>
+    state.cart.reduce((amount, product) => {
+      amount[product.id] = product.amount;
+
+      return amount;
+    }, {})
+  );
+```
+
+e no final passamos o `mapStateToProps` como `null`:
+
+```
+export default connect(null, mapDispatchToProps)(Home);
+                       ****
+```
+
+### useDispatch
+
+O ***useDispatch*** serve para dispararmos actions para o ***Redux*** sem que tenhamos que usar o `mapDispatchToProps`.
+
+***EXEMPLO:***
+
+1. importamos ele:
+
+```
+import { useDispatch, useSelector } from 'react-redux';
+         ***********
+```
+
+2. Passamos o `export default` na nossa funçāo principal:
+
+`export default function Cart() { ...`
+
+3. Deletamos toda essa parte no final do código onde estavamos usando o Redux padrāo:
+
+```
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Home);
+```
+4. Dentro da nossa funçāo principal fazemos o seguinte:
+
+```
+  const dispatch = useDispatch();
+```
+
+E por exemplo nossa funçāo `handleAddProduct` que antes estava sendo chamada assim:
+
+```
+function handleAddProduct(id) {
+    addToCartRequest(id);
+  }
+```
+agora vai ser chamada assim:
+
+```
+function handleAddProduct(id) {
+    dispatch(CartActions.addToCartRequest(id));
+  }
+```
